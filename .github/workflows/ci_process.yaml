@@ -31,9 +31,11 @@ jobs:
             chmod +x test_generation.sh
             ./test_generation.sh
 
-    #   - name: Set PYTHONPATH
-    #     run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
-    
+      - name: Set PYTHONPATH
+        run: |
+            echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+            echo "PYTHONPATH set to: $(pwd)"
+
       - name: Run tests with 100% coverage
         run: |
           pytest --cov=testing_v1 --cov-report=xml --cov-fail-under=100
