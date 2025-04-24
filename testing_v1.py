@@ -1,17 +1,17 @@
 # Function to add two numbers
 def add(num1, num2):
-    if num1 != None and num2 != None and num1.isdigit() and num2.isdigit():
+    if num1 != None and num2 != None:
     
         return num1 + num2
 
 # Function to subtract the second number from the first
 def subtract(num1, num2):
-    if num1 != None and num2 != None and num1.isdigit() and num2.isdigit():
+    if num1 != None and num2 != None:
         return num1 - num2
 
 # Function to multiply two numbers
 def multiply(num1, num2):
-    if num1 != None and num2 != None and num1.isdigit() and num2.isdigit():
+    if num1 != None and num2 != None:
     
         return num1 * num2
 
