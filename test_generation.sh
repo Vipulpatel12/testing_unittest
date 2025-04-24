@@ -31,7 +31,7 @@ for module in "${modules[@]}"; do
             --output-path ./unit_test \
             --module-name $module \
             --algorithm DYNAMOSA \
-            --maximum-search-time 10
+            --maximum-search-time 5
     remove_xfail_markers "./unit_test"
 done
 
