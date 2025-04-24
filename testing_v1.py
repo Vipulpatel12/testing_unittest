@@ -1,11 +1,11 @@
-# Function to subtract the second number from the first
+
+
 def subtract(num1, num2):
     if num1 is None or num2 is None:
         raise ValueError("Inputs cannot be None")
-    if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
-        raise TypeError("Inputs must be int or float")
+    if not isinstance(num1, (int, float, complex)) or not isinstance(num2, (int, float, complex)):
+        raise TypeError("Inputs must be int, float, or complex")
     return num1 - num2
-
 # Function to multiply two numbers
 def multiply(num1, num2):
     if num1 is None or num2 is None:
