@@ -10,8 +10,17 @@ modules=("testing_v1" "testing_v4")  # Replace with your actual module names
 remove_xfail_markers() {
     local test_dir=$1
     echo "Cleaning up xfail markers in $test_dir..."
-    echo "Contents of $test_dir:" ls -R "$test_dir"
-    find "$test_dir" -type f -name "*.py" 
+    
+    # Find all Python files and remove the xfail markers
+    find "$test_dir" -type f -name "*.py" | while read file; do
+        echo "Processing $file"
+        # Replace the xfail markers with empty string
+        sed -i '' 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
+
+       #  sed -i 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
+    done
+    
+    echo "Cleanup completed."
 }
 
 # Generate tests with Pynguin
