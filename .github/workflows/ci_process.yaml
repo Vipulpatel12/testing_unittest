@@ -25,6 +25,8 @@ jobs:
           pip install pytest pytest-cov
 
       - name: Generate tests
+        env:
+            PYNGUIN_DANGER_AWARE: 1
         run: |
             chmod +x test_generation.sh
             ./test_generation.sh
