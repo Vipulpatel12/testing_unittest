@@ -10,9 +10,13 @@ modules=("testing_v1" "testing_v4")  # Replace with your actual module names
 remove_xfail_markers() {
     local test_dir=$1
     echo "Cleaning up xfail markers in $test_dir..."
-    find "$test_dir" -type f -name "*.py" -exec sed -i '' '/@pytest\.mark\.xfail/d' {} +
+    files=$(find "$test_dir" -type f -name "*.py")
+    if [ -z "$files" ]; then
+        echo "No .py files found in $test_dir. Skipping cleanup."
+        return
+    fi
+    echo "$files" | xargs sed -i '' '/@pytest\.mark\.xfail/d'
 }
-
 # Generate tests with Pynguin
 # # Replace 'your_module' with the actual path to your module
 for module in "${modules[@]}"; do
