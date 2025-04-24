@@ -31,8 +31,8 @@ jobs:
             chmod +x test_generation.sh
             ./test_generation.sh
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+    #   - name: Set PYTHONPATH
+    #     run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
     
       - name: Run tests with 100% coverage
         run: |
