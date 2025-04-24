@@ -34,7 +34,7 @@ jobs:
           pytest --cov=your_package_name --cov-report=xml --cov-fail-under=100
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
             name: coverage-report
             path: |
