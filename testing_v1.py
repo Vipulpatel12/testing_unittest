@@ -1,19 +1,20 @@
 # Function to add two numbers
 def add(num1, num2):
     if num1 != None and num2 != None:
-    
-        return num1 + num2
+        if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+            return num1 + num2
 
 # Function to subtract the second number from the first
 def subtract(num1, num2):
     if num1 != None and num2 != None:
-        return num1 - num2
+        if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+            return num1 - num2
 
 # Function to multiply two numbers
 def multiply(num1, num2):
     if num1 != None and num2 != None:
-    
-        return num1 * num2
+        if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+            return num1 * num2
 
 # Function to divide the first number by the second
 def divide(num1, num2):
