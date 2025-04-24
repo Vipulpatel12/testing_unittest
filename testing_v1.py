@@ -34,7 +34,7 @@ def calculator(choice, num1, num2):
     elif choice == '2':
         return f"{num1} - {num2} = {subtract(num1, num2)}"
     elif choice == '3':
-        return f"{num1} '*' {num2} = {multiply(num1, num2)}"
+        return f"{num1} * {num2} = {multiply(num1, num2)}"
     elif choice == '4':
         return f"{num1} / {num2} = {divide(num1, num2)}"
     else:
