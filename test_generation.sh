@@ -15,9 +15,9 @@ remove_xfail_markers() {
     find "$test_dir" -type f -name "*.py" | while read file; do
         echo "Processing $file"
         # Replace the xfail markers with empty string
-        sed -i '' 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
+       #  sed -i '' 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
 
-       #  sed -i 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
+        sed -i 's/@pytest\.mark\.xfail(strict=True)//g' "$file"
     done
     
     echo "Cleanup completed."
