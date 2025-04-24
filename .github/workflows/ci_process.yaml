@@ -36,6 +36,13 @@ jobs:
             echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
             echo "PYTHONPATH set to: $(pwd)"
 
+      - name: Clear previous coverage data
+        run: |
+              find . -name '.coverage' -delete
+              find . -name 'coverage.xml' -delete
+              echo "Cleared previous coverage data."
+    
+
       - name: Run tests with 100% coverage
         run: |
           pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=80
