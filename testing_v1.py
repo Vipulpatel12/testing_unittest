@@ -14,6 +14,7 @@ def multiply(num1, num2):
         raise TypeError("Inputs must be int or float")
     return num1 * num2
 
+
 # Function to divide the first number by the second
 def divide(num1, num2):
     if num1 is None or num2 is None:
