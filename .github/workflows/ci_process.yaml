@@ -1,69 +1,30 @@
-name: CI/CD Pipeline
-
+name: CI/CD workflow for Maven Build and Sonar Code scan
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
+  workflow_dispatch:
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+    - name: Build with Maven
+      run: mvn clean install -f MyWebApp/pom.xml
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.organization=mytest
+          -Dsonar.projectKey=Vipulpatel12_testing_unittest_f5155b76-70f8-4ceb-b37a-45b5a45cdd22
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'  # Change this to your required Python version
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-cov
-
-      - name: Generate tests
-        env:
-            PYNGUIN_DANGER_AWARE: 1
-        run: |
-            chmod +x test_generation.sh
-            ./test_generation.sh
-
-      - name: Set PYTHONPATH
-        run: |
-            echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-            echo "PYTHONPATH set to: $(pwd)"
-
-      - name: Clear previous coverage data
-        run: |
-              find . -name '.coverage' -delete
-              find . -name 'coverage.xml' -delete
-              echo "Cleared previous coverage data."
-    
-
-      - name: Run tests with 100% coverage
-        run: |
-          pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=80
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-            name: coverage-report
-            path: |
-              **/coverage.xml
-              coverage.xml
-
-  deploy:
-    needs: test
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy to Production
-        run: |
-          echo "✅ All tests passed and 100% coverage achieved. Deploying code..."
-          # Add your deployment script here
