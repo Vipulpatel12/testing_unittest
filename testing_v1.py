@@ -14,6 +14,15 @@ def multiply(num1, num2):
         raise TypeError("Inputs must be int or float")
     return num1 * num2
 
+# Function to divide the first number by the second
+def dividing(num1, num2):
+    if num1 is None or num2 is None:
+        raise ValueError("Inputs cannot be None")
+    if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+        raise TypeError("Inputs must be int or float")
+    if num2 == 0:
+        raise ValueError("Cannot divide by zero")
+    # return num1 / num2
 
 # Function to divide the first number by the second
 def divide(num1, num2):
@@ -24,6 +33,16 @@ def divide(num1, num2):
     if num2 == 0:
         raise ValueError("Cannot divide by zero")
     # return num1 / num2
+
+# Function to divide the first number by the second
+def divide(num1, num2):
+    if num1 is None or num2 is None:
+        raise ValueError("Inputs cannot be None")
+    if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+        raise TypeError("Inputs must be int or float")
+    if num2 == 0:
+        raise ValueError("Cannot divide by zero")
+    return num1 / num2
 
 # Calculator function that performs an operation based on user choice
 def calculator(choice, num1, num2):
