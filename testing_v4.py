@@ -10,6 +10,7 @@ class Product:
         self.price = price
 
 
+
 class User:
     def __init__(self, user_id: str, purchase_history: List[Dict], viewed_products: List[str]):
         self.user_id = user_id
