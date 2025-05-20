@@ -13,10 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10
 
       - name: Install Python Dependencies
         run: |
@@ -52,7 +52,7 @@ jobs:
           args: >
             -Dsonar.projectKey=Vipulpatel12_testing_unittest_f5155b76-70f8-4ceb-b37a-45b5a45cdd22
             -Dsonar.language=py
-            -Dsonar.python.version=3.11
+            -Dsonar.python.version=3.10
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
