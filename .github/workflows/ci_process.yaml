@@ -1,54 +1,58 @@
-name: CI/CD workflow for Maven Build and Sonar Code scan
+name: CI/CD Workflow - Maven Build, Pytest & SonarQube
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
+
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.11'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        - name: Generate tests
-        env:
-            PYNGUIN_DANGER_AWARE: 1
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
         run: |
-            chmod +x test_generation.sh
-            ./test_generation.sh
-    - name: Set PYTHONPATH
-      run: |
-        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-        echo "PYTHONPATH set to: $(pwd)"
-    - name: Clear previous coverage data
-      run: |
-        find . -name '.coverage' -delete
-        find . -name 'coverage.xml' -delete
-        echo "Cleared previous coverage data."
-    - name: Run tests with 100% coverage
-      run: |
-        pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=80
-    # - name: Run Tests
-    #   run: |
-    #     pytest  # or `python -m unittest discover`
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      with:
-        projectBaseDir: .
-        args: >
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate Unit Tests
+        run: |
+          chmod +x test_generation.sh
+          ./test_generation.sh
+        env:
+          PYNGUIN_DANGER_AWARE: 1
+
+      - name: Set PYTHONPATH Environment Variable
+        run: |
+          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+          echo "PYTHONPATH is set to $(pwd)"
+
+      - name: Clean Previous Coverage Files
+        run: |
+          find . -name '.coverage' -delete
+          find . -name 'coverage.xml' -delete
+          echo "Previous coverage files cleaned."
+
+      - name: Run Unit Tests with Coverage
+        run: |
+          pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=80
+
+      - name: SonarQube Code Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: .
+          args: >
             -Dsonar.projectKey=Vipulpatel12_testing_unittest_f5155b76-70f8-4ceb-b37a-45b5a45cdd22
             -Dsonar.language=py
             -Dsonar.python.version=3.11
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-   
-        
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
