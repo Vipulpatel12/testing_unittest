@@ -1,2 +1,4 @@
 pynguin
 mutpy
+pytest-cov
+pytest
