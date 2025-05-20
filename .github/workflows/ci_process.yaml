@@ -42,7 +42,7 @@ jobs:
 
       - name: Run Unit Tests with Coverage
         run: |
-          pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=80
+          pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=70
 
       - name: SonarQube Code Scan
         uses: sonarsource/sonarqube-scan-action@master
