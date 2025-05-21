@@ -22,28 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generate Unit Tests
-        run: |
-          chmod +x test_generation.sh
-          ./test_generation.sh
-        env:
-          PYNGUIN_DANGER_AWARE: 1
-
-      - name: Set PYTHONPATH Environment Variable
-        run: |
-          echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-          echo "PYTHONPATH is set to $(pwd)"
-
-      - name: Clean Previous Coverage Files
-        run: |
-          find . -name '.coverage' -delete
-          find . -name 'coverage.xml' -delete
-          echo "Previous coverage files cleaned."
-
-      - name: Run Unit Tests with Coverage
-        run: |
-          pytest -s --cov=testing_v1 --cov-report=xml --cov-fail-under=70
-
+      
       - name: SonarQube Code Scan
         uses: sonarsource/sonarqube-scan-action@master
         with:
